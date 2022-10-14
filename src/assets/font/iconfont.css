@@ -1,0 +1,16 @@
+@font-face {
+  font-family: "icon"; /* Project id 3527277 */
+  src: url('./iconfont.ttf') format('truetype');
+}
+
+.icon {
+  font-family: "icon", sans-serif !important;
+}
+
+.icon-sousuo::before {
+  content: "\e60a";
+}
+
+.icon-youjiantou::before {
+  content: "\e62b";
+}
