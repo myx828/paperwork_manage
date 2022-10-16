@@ -1,24 +1,18 @@
 <template>
   <div id="app">
     <router-view />
+    <Tabbar />
   </div>
 </template>
-
 <script>
-// import {login} from '@/api'
-// export default {
-// methods:{
-//   async aa() {
-//   const {page} =  await login({userName: '11', passWord:'11'})
-//   this.tableData = page.list
-// }
-//   }
-// }
+import Tabbar from './pages/components/Tabbar.vue'
+export default {
+  components: { Tabbar }
+}
 </script>
 
 <style lang="scss">
-
 #app {
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 }
 </style>
