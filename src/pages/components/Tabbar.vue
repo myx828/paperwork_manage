@@ -2,6 +2,7 @@
   <van-tabbar
     v-model="active"
     active-color="#B13A3D"
+    @change="onChange"
   >
     <van-tabbar-item
       icon="home-o"
@@ -28,6 +29,11 @@ export default {
   data () {
     return {
       active: 0// 导航栏切换标志
+    }
+  },
+  methods: {
+    onChange (index) {
+      this.active = index
     }
   }
 }

@@ -5,7 +5,10 @@
       <p class="home_container_header_title">
         因私出国服务平台
       </p>
-      <div class="home_container_header_user">
+      <div
+        class="home_container_header_user"
+        @click="toPersonal"
+      >
         <div class="home_container_header_user_image">
           <van-image
             :src="getAvatarImg"
@@ -83,12 +86,17 @@ export default {
         discription: '用在哪何时在用'
       }]
     }
+  },
+  methods: {
+    toPersonal () {
+      this.$router.push({ path: '/personal' })
+    }
   }
 }
 </script>
 <style lang="scss" scoped>
 .home_container {
-  height: calc(var(--vh, 1vh) * 100 - 13.33333vw);
+  height: calc(100% - 50px);
 
   &_header {
     position: relative;

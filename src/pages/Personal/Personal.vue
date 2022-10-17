@@ -116,8 +116,6 @@ export default {
         display: flex;
         align-items: center;
       }
-
-      
     }
 
     &_logout {

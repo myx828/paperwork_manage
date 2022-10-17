@@ -1,45 +1,48 @@
 <template>
   <div class="login">
-    <div class="login_logo" />
-    <van-form
-      class="login_form"
-      @submit="onSubmit"
-    >
-      <div class="login_info">
-        <font-awesome-icon icon="user" />
-        <van-field
-          v-model="userImformation.userName"
-          placeholder="请输入账号"
-          :rules="[{required:true,message:'请输入账号'}]"
-        />
-      </div>
-      <div class="login_info">
-        <font-awesome-icon icon="lock" />
-        <van-field
-          v-model="userImformation.passWord"
-          :rules="[{required:true,message:'请输入密码'}]"
-          placeholder="请输入密码"
-          type="password"
-        />
-      </div>
-      <van-button
-        class="login_form_btn"
-        color="#b13a3d"
-        round
-        block
-        native-type="submit"
+    <div class="login_logo">
+      <div class="login_logo_image" />
+    </div>
+    <div class="login_form">
+      <van-form
+        @submit="onSubmit"
       >
-        提交
-      </van-button>
-      <van-button
-        class="login_form_auth"
-        color="#b13a3d"
-        round
-        block
-      >
-        统一身份认证登录
-      </van-button>
-    </van-form>
+        <div class="login_form_info">
+          <font-awesome-icon icon="user" />
+          <van-field
+            v-model="userImformation.userName"
+            placeholder="请输入账号"
+            :rules="[{required:true,message:'请输入账号'}]"
+          />
+        </div>
+        <div class="login_form_info">
+          <font-awesome-icon icon="lock" />
+          <van-field
+            v-model="userImformation.passWord"
+            :rules="[{required:true,message:'请输入密码'}]"
+            placeholder="请输入密码"
+            type="password"
+          />
+        </div>
+        <van-button
+          class="login_form_btn"
+          color="#b13a3d"
+          round
+          block
+          native-type="submit"
+        >
+          提交
+        </van-button>
+        <van-button
+          class="login_form_auth"
+          color="#b13a3d"
+          round
+          block
+        >
+          统一身份认证登录
+        </van-button>
+      </van-form>
+    </div>
   </div>
 </template>
 <script>
@@ -83,6 +86,9 @@ export default {
       } catch (e) {
         this.$toast.clear()
       } finally {
+        this.$toast.loading({
+          forbidClick: false
+        })
       }
       // 校验表单
       // 跳到指定页面 （成功）
@@ -103,22 +109,36 @@ export default {
 </script>
 <style scoped lang="scss">
 .login {
-  box-sizing: border-box;
-  width: 100vw;
-  height: calc(var(--vh, 1vh) * 100);
-  padding: 31.73333vw 17.33333vw 0;
+  width: 100%;
+  height: 100%;
   background-image: url(../../assets/image/login-bg.png);
   background-size: cover;
 
   &_logo {
-    width: 66.4vw;
-    height: 19.2vw;
-    background-image: url(../../assets/image/logo.png);
-    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+
+    &_image {
+      width: 66.4vw;
+      height: 19.2vw;
+      background-image: url(../../assets/image/logo.png);
+      background-size: cover;
+    }
   }
 
   &_form {
-    margin-top: 37.33333vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+
+    &_info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
     &_btn {
       width: 46.66667vw !important;
@@ -130,12 +150,5 @@ export default {
       margin: 5.33333vw auto 0;
     }
   }
-
-  &_info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 }
-
 </style>
