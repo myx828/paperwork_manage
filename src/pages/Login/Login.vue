@@ -10,7 +10,7 @@
         <div class="login_form_info">
           <font-awesome-icon icon="user" />
           <van-field
-            v-model="userImformation.userName"
+            v-model.trim="userImformation.userName"
             placeholder="请输入账号"
             :rules="[{required:true,message:'请输入账号'}]"
           />
@@ -18,7 +18,7 @@
         <div class="login_form_info">
           <font-awesome-icon icon="lock" />
           <van-field
-            v-model="userImformation.passWord"
+            v-model.trim="userImformation.passWord"
             :rules="[{required:true,message:'请输入密码'}]"
             placeholder="请输入密码"
             type="password"
@@ -53,10 +53,11 @@ const PUBLIC_KEY =
   '047e3177c510f0fd85fb2a7ca8b7cabf5b62395f41fc9e7acd332751b176b4b644f8837b0d4e88b004dcb89143dd66f3aa5672e15e056a1581ea260504fef5bec9'
 
 // 屏幕适配
-window.addEventListener('resize', () => {
-  const vh = window.innerHeight * 0.01
-  document.documentElement.style.setProperty('--vh', `${vh}px`)
-})
+// window.addEventListener('resize', () => {
+//   const vh = window.innerHeight * 0.01
+//   document.documentElement.style.setProperty('--vh', `${vh}px`)
+// })
+
 export default {
   // name: 'Login',
   data () {
@@ -79,8 +80,8 @@ export default {
           password: this.encryptUserNameAndPassword(this.userImformation.passWord)
         })
         if (msgCode === 0) {
-          localStorage.setItem('serInfo', JSON.stringify(item))
-          this.$router.push({ path: '/home' })
+          localStorage.setItem('tokenInfo', JSON.stringify(item.token))
+          this.$router.push({ path: '/layout/home' })
           this.$toast.clear()
         }
       } catch (e) {
