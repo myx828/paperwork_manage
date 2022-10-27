@@ -1,34 +1,18 @@
 <template>
   <van-tabs
+    v-model="activeName"
     sticky
-    @rendered="click"
+    @click="click"
   >
     <van-tab
-      title="等待审批"
-      :badge="waitList.length"
+      v-for="(tab,index) in tabList"
+      :key="index"
+      :title="tab.name"
+      :name="tab.status"
     >
       <ApplicationItem
-        :item-list="waitList"
-        :clicked-title="clickedTitle"
-      />
-    </van-tab>
-    <van-tab title="通过">
-      <ApplicationItem
-        :item-list="passList"
-        :clicked-title="clickedTitle"
-      />
-    </van-tab>
-
-    <van-tab title="拒绝">
-      <ApplicationItem
-        :item-list="refuseList"
-        :clicked-title="clickedTitle"
-      />
-    </van-tab>
-    <van-tab title="全部">
-      <ApplicationItem
-        :item-list="applicationList"
-        :clicked-title="clickedTitle"
+        :item-list="itemList"
+        :clicked-title="tab.name"
       />
     </van-tab>
   </van-tabs>
@@ -40,32 +24,35 @@ export default {
   components: { ApplicationItem },
   data () {
     return {
-      applicationList: [], // 全部数据列表
-      waitList: [], // 等待审核数组
-      passList: [], // 通过数组
-      refuseList: [], // 拒绝数组
-      clickedTitle: ''// 点击的标签页名
+      itemList: [], // 数据列表
+      activeName: '5', // 默认启用的标签
+      tabList: [{ // tab栏切换 状态获取
+        name: '等待审核',
+        status: '5'
+      }, {
+        name: '通过',
+        status: '0'
+      }, {
+        name: '拒绝',
+        status: '1'
+      }, {
+        name: '全部',
+        status: ''
+      }]
     }
+  },
+  mounted () {
+    this.click(this.activeName) // 页面加载完后默认调用一次api
   },
   methods: {
     // 点击tab栏切换获取后端数据
     async click (name, title) {
-      this.waitList = []
-      this.passList = []
-      this.refuseList = []
-      this.clickedTitle = title
-      const { page } = await list()
-      localStorage.setItem('applicationList', JSON.stringify(page))
-      this.applicationList = JSON.parse(localStorage.getItem('applicationList')).list
-      this.applicationList.forEach(element => {
-        if (element.status === '5') {
-          this.waitList.push(element)
-        } else if (element.status === '0') {
-          this.passList.push(element)
-        } else if (element.status === '1') {
-          this.refuseList.push(element)
-        }
-      })
+      try {
+        const { page } = await list({ status: name })
+        this.itemList = page.list
+      } catch (error) {
+
+      }
     }
   }
 }

@@ -2,7 +2,7 @@
   <div id="app">
     <van-tabs
       sticky
-      @rendered="click"
+      @click="click"
     >
       <van-tab
         title="未归还"
