@@ -1,53 +1,64 @@
 <template>
   <div id="app">
     <van-tabs
+      v-model="activeName"
       sticky
       @click="click"
     >
       <van-tab
-        title="未归还"
-        :badge="unreturnedList.length"
+        v-for="(tab,index) in tabList"
+        :key="index"
+        :title="tab.name"
+        :name="tab.status"
+        :badge="tab.name==='未归还'?count:undefined"
       >
-        <RecordItem :item-list="unreturnedList" />
+        <RecordItem :item-list="itemList" />
       </van-tab>
-      <van-tab title="已归还">
-        <RecordItem :item-list="returnList" />
-      </van-tab>
-      <van-tab
-        title="全部"
-      >
-        <RecordItem :item-list="recordList" />
+      <van-tab title="全部">
+        <RecordItem :item-list="itemList" />
       </van-tab>
     </van-tabs>
   </div>
 </template>
 <script>
-import { list } from '../../../api/record'
+import { list, listByStatus } from '../../../api/record'
 import RecordItem from './RecordItem.vue'
 export default {
   components: { RecordItem },
   data () {
     return {
-      recordList: [], // 全部数据列表
-      returnList: [], // 已归还数组
-      unreturnedList: []// 未归还数组
+      itemList: [], // 数据列表
+      activeName: '0', // 默认启用的标签
+      count: 0, // 等候审批的数据量
+      tabList: [{ // tab栏切换 状态获取
+        name: '未归还',
+        status: '0'
+      }, {
+        name: '已归还',
+        status: '1'
+      }]
     }
+  },
+  mounted () {
+    this.click(this.activeName) // 页面加载完后默认调用一次api
   },
   methods: {
     // 点击tab栏切换获取后端数据
-    async click () {
-      this.returnList = []
-      this.unreturnedList = []
-      const { page } = await list()
-      localStorage.setItem('recordList', JSON.stringify(page))
-      this.recordList = JSON.parse(localStorage.getItem('recordList')).list
-      this.recordList.forEach(element => {
-        if (element.status === '1') {
-          this.returnList.push(element)
-        } else if (element.status === '0') {
-          this.unreturnedList.push(element)
+    async click (name, title) {
+      try {
+        if (title === '全部') { // 不传status参数
+          const { page } = await list()
+          this.itemList = page.list
+        } else {
+          const { page } = await listByStatus({ status: name })
+          this.itemList = page.list
+          if (name === '0') {
+            this.count = this.itemList.length
+          }
         }
-      })
+      } catch (error) {
+
+      }
     }
   }
 }

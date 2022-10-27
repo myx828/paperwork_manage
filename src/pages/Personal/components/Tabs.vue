@@ -9,6 +9,7 @@
       :key="index"
       :title="tab.name"
       :name="tab.status"
+      :badge="tab.name==='等待审核'?count:undefined"
     >
       <ApplicationItem
         :item-list="itemList"
@@ -22,9 +23,16 @@ import { list } from '../../../api/application'
 import ApplicationItem from './ApplicationItem.vue'
 export default {
   components: { ApplicationItem },
+  props: {
+    navBarTitle: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     return {
       itemList: [], // 数据列表
+      count: 0, // 等候审批的数据量
       activeName: '5', // 默认启用的标签
       tabList: [{ // tab栏切换 状态获取
         name: '等待审核',
@@ -50,6 +58,9 @@ export default {
       try {
         const { page } = await list({ status: name })
         this.itemList = page.list
+        if (name === '5') {
+          this.count = this.itemList.length
+        }
       } catch (error) {
 
       }
