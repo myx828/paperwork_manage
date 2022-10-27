@@ -14,9 +14,12 @@
         name="envelop-o"
         badge="0"
         class="info_container_user_icon"
+        @click="toMessage"
       />
     </div>
-    <div class="info_container_banner">
+    <div
+      class="info_container_banner"
+    >
       <van-image :src="getBannerImg" />
     </div>
   </div>
@@ -27,6 +30,11 @@ export default {
     return {
       getAvatarImg: require('../../../assets/image/avatar.jpg'), // 获取头像路径
       getBannerImg: require('../../../assets/image/banner1.png')
+    }
+  },
+  methods: {
+    toMessage () {
+      this.$router.push({ path: '/myMessage' })
     }
   }
 }

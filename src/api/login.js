@@ -17,3 +17,15 @@ export function login ({
     // }
   })
 }
+
+export function loginLic ({
+  token
+}) {
+  return request({
+    url: '/api/lics/loginLic/loginLic',
+    method: 'post',
+    params: { // query传值
+      token
+    }
+  })
+}

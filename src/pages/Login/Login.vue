@@ -46,7 +46,7 @@
   </div>
 </template>
 <script>
-import { login } from '@/api/login.js'
+import { login, loginLic } from '../../api/login'
 import { sm2 } from 'sm-crypto'
 
 const PUBLIC_KEY =
@@ -81,6 +81,10 @@ export default {
         })
         if (msgCode === 0) {
           localStorage.setItem('tokenInfo', JSON.stringify(item.token))
+          const userInfo = await loginLic({
+            token: JSON.parse(localStorage.getItem('tokenInfo')).access_token
+          })
+          localStorage.setItem('userInfo', JSON.stringify(userInfo.item))
           this.$router.push({ path: '/layout/home' })
           this.$toast.clear()
         }

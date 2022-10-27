@@ -21,7 +21,7 @@ export default {
         {
           icon: require('../../../assets/image/xiaoxi.png'),
           title: '我的消息',
-          path: ''
+          path: '/myMessage'
         },
         {
           icon: require('../../../assets/image/geren.png'),

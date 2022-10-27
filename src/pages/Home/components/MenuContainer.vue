@@ -24,6 +24,7 @@
 export default {
   data () {
     return {
+      showDialog: false,
       services: [{
         image: require('../../../assets/image/apply.png'),
         title: '用证申请',
