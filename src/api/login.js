@@ -17,7 +17,11 @@ export function login ({
     // }
   })
 }
-
+/**
+ * 统一登录接口
+ * @param {*} param0
+ * @returns
+ */
 export function loginLic ({
   token
 }) {
@@ -26,6 +30,21 @@ export function loginLic ({
     method: 'post',
     params: { // query传值
       token
+    }
+  })
+}
+
+export function dictionaryByType ({
+  type
+}) {
+  return request({
+    url: '/api/system/dictionary',
+    method: 'get',
+    headers: {
+      'Access-Token': JSON.parse(localStorage.getItem('tokenInfo')).access_token
+    },
+    params: { // query传值
+      type
     }
   })
 }

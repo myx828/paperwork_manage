@@ -46,7 +46,7 @@
   </div>
 </template>
 <script>
-import { login, loginLic } from '../../api/login'
+import { login, loginLic, dictionaryByType } from '../../api/login'
 import { sm2 } from 'sm-crypto'
 
 const PUBLIC_KEY =
@@ -84,8 +84,16 @@ export default {
           const userInfo = await loginLic({
             token: JSON.parse(localStorage.getItem('tokenInfo')).access_token
           })
-          localStorage.setItem('userInfo', JSON.stringify(userInfo.item))
-          this.$router.push({ path: '/layout/home' })
+          localStorage.setItem('userInfo', JSON.stringify(userInfo.item.user))
+          const { page } = await dictionaryByType({
+            type: 'paperwork_type'
+          })
+          this.$router.push({
+            path: '/layout/home',
+            query: {
+              paperworkDic: page.list
+            }
+          })
           this.$toast.clear()
         }
       } catch (e) {

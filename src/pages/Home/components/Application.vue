@@ -37,7 +37,7 @@
       :nav-bar-title="navBarTitle"
       :left-arrow-status="true"
     />
-    <van-form>
+    <van-form @submit="onSubmit">
       <van-field
         v-model="userInfo.xm"
         required
@@ -152,6 +152,7 @@
       />
       <div v-if="showDetail">
         <van-field
+          v-model="paperwork"
           label="申领证照名称"
           required
         />
@@ -173,7 +174,7 @@
       </div>
       <van-action-sheet
         v-model="showActionSheet"
-        cancel-text="确定"
+        cancel-text="确认"
         @cancel="confirmPaperwork"
       >
         <van-checkbox-group v-model="result">
@@ -213,6 +214,7 @@
           v-model="currentDate"
           type="date"
           @confirm="confirmDate(currentDate)"
+          @cancel="cancelDate"
         />
       </van-popup>
     </van-form>
@@ -220,6 +222,7 @@
 </template>
 <script>
 import NavBar from '../../../components/NavBar.vue'
+import { saveApplication } from '../../../api/application'
 export default {
   components: { NavBar },
   data () {
@@ -249,11 +252,12 @@ export default {
         name: '台湾通行证'
       }, {
         name: '双程证'
-      }]
+      }],
+      paperworkDic: []// 字典获取证件信息
     }
   },
   created () {
-    this.userInfo = JSON.parse(localStorage.getItem('userInfo')).user
+    this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
   },
   mounted () {
     const time = setInterval(() => {
@@ -263,6 +267,7 @@ export default {
         this.disabled = false
       }
     }, 1000)
+    this.paperworkDic = JSON.parse(this.$route.query.paperworkDic)
   },
   methods: {
     // 点击触发多选框
@@ -292,6 +297,17 @@ export default {
       const month = val.getMonth() + 1
       const date = val.getDate()
       this.date = year + '-' + month + '-' + date
+    },
+    // 选择证件动作面板取消
+    cancelDate () {
+      this.showDatetimePicker = false
+    },
+    // 提交表单数据
+    async onSubmit () {
+      const { item } = await saveApplication({
+        // certificate: this.paperwork
+      })
+      console.log(item)
     }
   }
 }

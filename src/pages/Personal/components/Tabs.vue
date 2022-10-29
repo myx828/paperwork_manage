@@ -11,18 +11,20 @@
       :name="tab.status"
       :badge="tab.name==='等待审核'?count:undefined"
     >
-      <ApplicationItem
+      <component
+        :is="componentName"
         :item-list="itemList"
-        :clicked-title="tab.name"
       />
     </van-tab>
   </van-tabs>
 </template>
 <script>
-import { list } from '../../../api/application'
+import { applicationList } from '../../../api/application'
+import { approvalList } from '../../../api/approval'
 import ApplicationItem from './ApplicationItem.vue'
+import ApprovalItem from './ApprovalItem.vue'
 export default {
-  components: { ApplicationItem },
+  components: { ApplicationItem, ApprovalItem },
   props: {
     navBarTitle: {
       type: String,
@@ -46,7 +48,8 @@ export default {
       }, {
         name: '全部',
         status: ''
-      }]
+      }],
+      componentName: ''// 动态绑定组件名字
     }
   },
   mounted () {
@@ -56,10 +59,20 @@ export default {
     // 点击tab栏切换获取后端数据
     async click (name, title) {
       try {
-        const { page } = await list({ status: name })
-        this.itemList = page.list
-        if (name === '5') {
-          this.count = this.itemList.length
+        if (this.navBarTitle === '我的申请') { // 通过父组件传值 调用不同的api接口
+          this.componentName = 'ApplicationItem'
+          const { page } = await applicationList({ status: name })
+          this.itemList = page.list
+          if (name === '5') {
+            this.count = this.itemList.length
+          }
+        } else if (this.navBarTitle === '我的审批') {
+          this.componentName = 'ApprovalItem'
+          const { page } = await approvalList({ status: name })
+          this.itemList = page.list
+          if (name === '5') {
+            this.count = this.itemList.length
+          }
         }
       } catch (error) {
 

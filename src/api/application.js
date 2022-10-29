@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function list ({ status }) {
+export function applicationList ({ status }) {
   return request({
     url: '/api/lic/approval/v1.0/list',
     method: 'get',
@@ -9,6 +9,29 @@ export function list ({ status }) {
     },
     params: {
       status
+    }
+  })
+}
+
+export function applicationListById (applyId) {
+  return request({
+    url: '/api/lic/approval/v1.0/getProcess/' + applyId,
+    method: 'get',
+    headers: {
+      'Access-Token': JSON.parse(localStorage.getItem('tokenInfo')).access_token
+    }
+  })
+}
+
+export function saveApplication ({ applicationList }) {
+  return request({
+    url: '/api/lic/approval/v1.0/save',
+    method: 'post',
+    headers: {
+      'Access-Token': JSON.parse(localStorage.getItem('tokenInfo')).access_token
+    },
+    data: {
+      applicationList
     }
   })
 }

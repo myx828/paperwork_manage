@@ -5,7 +5,7 @@
       :nav-bar-title="navBarTitle"
       :left-arrow-status="true"
     />
-    <Tabs />
+    <Tabs :nav-bar-title="navBarTitle" />
   </div>
 </template>
 <script>

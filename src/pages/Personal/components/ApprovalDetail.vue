@@ -32,15 +32,6 @@
         </li>
       </ul>
     </div>
-    <div class="process_container_footer">
-      <van-button
-        block
-        round
-        @click="toCancelApplication"
-      >
-        取消申请
-      </van-button>
-    </div>
   </div>
 </template>
 <script>
@@ -117,15 +108,8 @@ export default {
   beforeCreate () {
     this.itemDetail = JSON.parse(this.$route.query.itemDetail)
   },
-  // created () {
-  //   this.itemDetail = JSON.parse(this.$route.query.itemDetail)
-  // },
-  methods: {
-    toCancelApplication () {
-      this.$router.push({
-        path: '/cancelApplication'
-      })
-    }
+  created () {
+    this.itemDetail = JSON.parse(this.$route.query.itemDetail)
   }
 }
 </script>

@@ -1,31 +1,92 @@
 <template>
   <div id="app">
     <div class="message_container">
-      <div class="message_container_content">
-        <div class="message_container_content_item">
-          <div class="item_header">
-            <p class="item_header_title">
-              xx
+      <van-pull-refresh
+        v-model="isLoading"
+        @refresh="onRefresh"
+      >
+        <div
+          class="message_container_content"
+        >
+          <div
+            v-for="(item,index) in messageList"
+            :key="index"
+            ref="contentItem"
+            class="message_container_content_item"
+            :class="{view:!isRead&&activeIndex===index}"
+            @click="showDetail(index)"
+          >
+            <div class="item_header">
+              <p class="item_header_title">
+                {{ item.type ==='5'?'过期提醒':'归还提醒' }}
+              </p>
+              <p
+                ref="headerTime"
+                class="item_header_time"
+              >
+                {{ activeIndex === index ?(isRead?(item.mark==='1'?'已读':'未读'):item.updateDate):item.mark==='1'?'已读':'未读' }}
+              </p>
+            </div>
+            <div
+              v-if=" activeIndex === index ?isRead:true"
+              class="item_time"
+            >
+              {{ item.updateDate }}
+            </div>
+            <div
+              class="item_content"
+            >
+              {{ activeIndex === index ?item.message:undefined }}
+            </div>
+            <div
+              class="item_btn"
+            >
+              收起
+            </div>
+          </div>
+          <div class="pull">
+            <p class="pull_title">
+              没有更多了
             </p>
-            <p class="item_header_time">
-              xx
-            </p>
-          </div>
-          <div class="item_time">
-            xx
-          </div>
-          <div class="item_content">
-            xxx
-          </div>
-          <div class="item_btn">
-            收起
           </div>
         </div>
-      </div>
+      </van-pull-refresh>
     </div>
   </div>
 </template>
+<script>
+import { Toast } from 'vant'
+export default {
+  data () {
+    return {
+      isRead: true,
+      messageList: [],
+      activeIndex: -1, // 点击的索引值
+      isLoading: false // 加载标志
+    }
+  },
+  mounted () {
+    this.messageList = JSON.parse(this.$route.query.messageList)
+  },
+  methods: {
+    showDetail (index) {
+      this.activeIndex = index
+      this.isRead = !this.isRead
+    },
+    onRefresh () {
+      setTimeout(() => {
+        Toast('刷新成功')
+        this.isLoading = false
+        this.count++
+      }, 1000)
+    }
+
+  }
+
+}
+</script>
 <style lang="scss" scoped>
+
 .message_container {
   height: 100%;
   padding: 0 4vw;
@@ -45,6 +106,10 @@
   }
 }
 
+.view {
+  height: auto;
+}
+
 .item_header {
   display: flex;
   align-items: center;
@@ -58,8 +123,13 @@
   }
 
   &_time {
+    font-size: 2.93333vw;
     color: #666;
   }
+}
+
+.is_read {
+  color: #868686;
 }
 
 .item_time {
@@ -82,5 +152,17 @@
   color: #868686;
   text-align: center;
   border-top: 1px solid #ccc;
+}
+
+.pull {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &_title {
+    padding: 2.66667vw;
+    font-size: 2.93333vw;
+    color: #b13a3d;
+  }
 }
 </style>

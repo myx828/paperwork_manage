@@ -11,6 +11,7 @@ export default {
   methods: {
     loginOut () {
       localStorage.removeItem('tokenInfo')
+      localStorage.removeItem('userInfo')
       this.$router.push('/login')
     }
   }

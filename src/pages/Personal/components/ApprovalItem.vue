@@ -62,7 +62,7 @@
   </div>
 </template>
 <script>
-import { applicationListById } from '../../../api/application'
+import { approvalListById } from '../../../api/approval'
 export default {
   props: {
     itemList: {
@@ -79,9 +79,9 @@ export default {
   methods: {
     // 详情
     async toDetail (applyId) {
-      const { item } = await applicationListById(applyId)
+      const { item } = await approvalListById(applyId)
       this.$router.push({
-        path: '/applicationDetail',
+        path: '/approvalDetail',
         query: {
           itemDetail: JSON.stringify(item)
         }

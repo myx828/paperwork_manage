@@ -15,7 +15,7 @@
         />
       </div>
       <p class="home_container_header_user_name">
-        庄晨忠
+        {{ userInfo.xm }}
       </p>
       <van-icon
         slot="icon"
@@ -29,8 +29,12 @@
 export default {
   data () {
     return {
-      getAvatarImg: require('../../../assets/image/avatar.jpg')
+      getAvatarImg: require('../../../assets/image/avatar.jpg'),
+      userInfo: {} // 用户信息列表
     }
+  },
+  mounted () {
+    this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
   },
   methods: {
     toPersonal () {

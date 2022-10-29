@@ -10,6 +10,8 @@ import Infomation from '../pages/Personal/components/Infomation.vue'
 import MyMessage from '../pages/Personal/components/MyMessage.vue'
 import RecordDetail from '../pages/Home/components/RecordDetail.vue'
 import ApplicationDetail from '../pages/Personal/components/ApplicationDetail.vue'
+import ApprovalDetail from '../pages/Personal/components/ApprovalDetail.vue'
+import CancelApplication from '../pages/Personal/components/CancelApplication.vue'
 export default [
   {
     path: '/',
@@ -79,6 +81,20 @@ export default [
     component: ApplicationDetail,
     meta: {
       title: '申请详情'
+    }
+  },
+  {
+    path: '/approvalDetail',
+    component: ApprovalDetail,
+    meta: {
+      title: '审批详情'
+    }
+  },
+  {
+    path: '/cancelApplication',
+    component: CancelApplication,
+    meta: {
+      title: '取消用证申请'
     }
   }
 ]

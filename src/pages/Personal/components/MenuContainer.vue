@@ -14,9 +14,11 @@
   </div>
 </template>
 <script>
+import { messageList } from '../../../api/message'
 export default {
   data () {
     return {
+      components: { messageList },
       menus: [
         {
           icon: require('../../../assets/image/xiaoxi.png'),
@@ -39,13 +41,22 @@ export default {
           title: '我的审批',
           path: '/myApproval'
         }
-      ]
+
+      ],
+      messageList: []// 点击“我的消息”发起api
     }
   },
   methods: {
-    toDetail (path) {
+    async toDetail (path) {
+      if (path === '/myMessage') {
+        const { page } = await messageList()
+        this.messageList = page.list
+      }
       this.$router.push({
-        path
+        path,
+        query: {
+          messageList: JSON.stringify(this.messageList)
+        }
       })
     }
   }

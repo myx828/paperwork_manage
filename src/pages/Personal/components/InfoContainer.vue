@@ -8,11 +8,11 @@
         />
       </div>
       <p class="info_container_user_name">
-        庄晨忠
+        {{ userInfo.xm }}
       </p>
       <van-icon
+        :badge="0"
         name="envelop-o"
-        badge="0"
         class="info_container_user_icon"
         @click="toMessage"
       />
@@ -29,8 +29,12 @@ export default {
   data () {
     return {
       getAvatarImg: require('../../../assets/image/avatar.jpg'), // 获取头像路径
-      getBannerImg: require('../../../assets/image/banner1.png')
+      getBannerImg: require('../../../assets/image/banner1.png'),
+      userInfo: {} // 用户信息列表
     }
+  },
+  mounted () {
+    this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
   },
   methods: {
     toMessage () {

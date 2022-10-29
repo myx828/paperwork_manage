@@ -12,6 +12,11 @@
         :name="tab.status"
         :badge="tab.name==='未归还'?count:undefined"
       >
+        <!-- 没有数据时 -->
+        <van-empty
+          v-if="emptySatus"
+          description="暂无数据"
+        />
         <RecordItem :item-list="itemList" />
       </van-tab>
       <van-tab title="全部">
@@ -21,7 +26,7 @@
   </div>
 </template>
 <script>
-import { list, listByStatus } from '../../../api/record'
+import { recordList, recordListByStatus } from '../../../api/record'
 import RecordItem from './RecordItem.vue'
 export default {
   components: { RecordItem },
@@ -36,7 +41,8 @@ export default {
       }, {
         name: '已归还',
         status: '1'
-      }]
+      }],
+      emptySatus: false
     }
   },
   mounted () {
@@ -47,11 +53,16 @@ export default {
     async click (name, title) {
       try {
         if (title === '全部') { // 不传status参数
-          const { page } = await list()
+          const { page } = await recordList()
           this.itemList = page.list
         } else {
-          const { page } = await listByStatus({ status: name })
+          const { page } = await recordListByStatus({ status: name })
           this.itemList = page.list
+          if (page.count === 0) {
+            this.emptySatus = true
+          } else {
+            this.emptySatus = false
+          }
           if (name === '0') {
             this.count = this.itemList.length
           }

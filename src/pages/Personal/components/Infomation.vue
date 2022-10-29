@@ -44,45 +44,49 @@ export default {
   data () {
     return {
       navBarTitle: this.$route.meta.title, // 获取头部标题
+      userInfo: {}, // 用户信息列表
       baseInfo: [{ // 基础信息
         title: '姓名',
-        value: '庄'
+        value: this.userInfo.xm
       },
       {
         title: '性别',
-        value: '男'
+        value: (this.userInfo.xbm === '0') ? '男' : '女'
       },
       {
         title: '出生日期',
-        value: '1969-08-23'
+        value: this.userInfo.csrq
       },
       {
         title: '国籍',
-        value: '中国'
+        value: this.userInfo.gjm
       },
       {
         title: '联系电话',
-        value: 123
+        value: this.userInfo.phone
       }
       ],
       commonInfo: [{ // 常用信息
         title: '籍贯',
-        value: '福清市'
+        value: this.userInfo.jgm
       },
       {
         title: '民族',
-        value: '汉族'
+        value: this.userInfo.mzm
       },
       {
         title: '政治面貌',
-        value: '中共共产党党员'
+        value: this.userInfo.zzmmm
       },
       {
         title: '身份证号',
-        value: 123
+        value: this.userInfo.zjhm
       }
       ]
     }
+  },
+  beforeCreate () { // data还未生效 一旦到created data可以使用或许不到userInfo
+    this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
   }
 }
 </script>

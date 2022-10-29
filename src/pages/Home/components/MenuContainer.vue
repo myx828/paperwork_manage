@@ -22,6 +22,14 @@
 </template>
 <script>
 export default {
+  props: {
+    paperworkDic: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data () {
     return {
       showDialog: false,
@@ -40,7 +48,17 @@ export default {
   },
   methods: {
     toDetail (path) {
-      this.$router.push({ path })
+      this.$router.push({
+        path
+      })
+      if (path === '/application') {
+        this.$router.push({
+          path,
+          query: {
+            paperworkDic: JSON.stringify(this.paperworkDic)
+          }
+        })
+      }
     }
   }
 }
