@@ -79,13 +79,22 @@ export default {
   methods: {
     // 详情
     async toDetail (applyId) {
-      const { item } = await approvalListById(applyId)
-      this.$router.push({
-        path: '/approvalDetail',
-        query: {
-          itemDetail: JSON.stringify(item)
+      try {
+        this.$toast.loading({
+          message: '加载中...',
+          forbidClick: true
+        })
+        const { msgCode, item } = await approvalListById(applyId)
+        if (msgCode === 0) {
+          sessionStorage.setItem('itemDetail', JSON.stringify(item))
+          this.$router.push({
+            path: '/approvalDetail'
+          })
+          this.$toast.clear()
         }
-      })
+      } catch (e) {
+
+      }
     }
   }
 }

@@ -49,11 +49,10 @@ export default {
   methods: {
     // 详情
     toDetail (index) {
+      sessionStorage.setItem('itemList', this.itemList)
+      sessionStorage.setItem('listIndex', index)
       this.$router.push({
-        path: '/recordDetail',
-        query: {
-          listIndex: index
-        }
+        path: '/recordDetail'
       })
     }
   }

@@ -73,10 +73,14 @@ export default {
     }
   },
   beforeCreate () {
-    this.itemDetail = JSON.parse(localStorage.getItem('recordList')).list[this.$route.query.listIndex]
+    this.itemDetail = JSON.parse(sessionStorage.getItem('itemList')).list[sessionStorage.getItem('listIndex')]
   },
   created () {
-    this.itemDetail = JSON.parse(localStorage.getItem('recordList')).list[this.$route.query.listIndex]
+    this.itemDetail = JSON.parse(sessionStorage.getItem('itemList')).list[sessionStorage.getItem('listIndex')]
+  },
+  destroyed () {
+    sessionStorage.removeItem('itemList')
+    sessionStorage.removeItem('listIndex')
   }
 }
 </script>

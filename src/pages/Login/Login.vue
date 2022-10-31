@@ -85,14 +85,13 @@ export default {
             token: JSON.parse(localStorage.getItem('tokenInfo')).access_token
           })
           localStorage.setItem('userInfo', JSON.stringify(userInfo.item.user))
-          const { page } = await dictionaryByType({
+
+          const { page } = await dictionaryByType({ // 字典
             type: 'paperwork_type'
           })
+          sessionStorage.setItem('paperworkDic', page.list)
           this.$router.push({
-            path: '/layout/home',
-            query: {
-              paperworkDic: page.list
-            }
+            path: '/layout/home'
           })
           this.$toast.clear()
         }

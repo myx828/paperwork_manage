@@ -106,10 +106,13 @@ export default {
     }
   },
   beforeCreate () {
-    this.itemDetail = JSON.parse(this.$route.query.itemDetail)
+    this.itemDetail = JSON.parse(sessionStorage.getItem('itemDetail'))
   },
   created () {
-    this.itemDetail = JSON.parse(this.$route.query.itemDetail)
+    this.itemDetail = JSON.parse(sessionStorage.getItem('itemDetail'))
+  },
+  destroyed () {
+    sessionStorage.removeItem('itemDetail')
   }
 }
 </script>

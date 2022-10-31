@@ -115,11 +115,14 @@ export default {
     }
   },
   beforeCreate () {
-    this.itemDetail = JSON.parse(this.$route.query.itemDetail)
+    this.itemDetail = JSON.parse(sessionStorage.getItem('itemDetail'))
   },
-  // created () {
-  //   this.itemDetail = JSON.parse(this.$route.query.itemDetail)
-  // },
+  created () {
+    this.itemDetail = JSON.parse(sessionStorage.getItem('itemDetail'))
+  },
+  updated () {
+    sessionStorage.removeItem('itemDetail')
+  },
   methods: {
     toCancelApplication () {
       this.$router.push({

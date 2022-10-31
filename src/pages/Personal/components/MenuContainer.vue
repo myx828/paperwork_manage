@@ -48,16 +48,25 @@ export default {
   },
   methods: {
     async toDetail (path) {
-      if (path === '/myMessage') {
-        const { page } = await messageList()
-        this.messageList = page.list
-      }
-      this.$router.push({
-        path,
-        query: {
-          messageList: JSON.stringify(this.messageList)
+      try {
+        this.$toast.loading({
+          message: '加载中...',
+          forbidClick: true
+        })
+        if (path === '/myMessage') {
+          const { msgCode, page } = await messageList()
+          if (msgCode === 0) {
+            this.messageList = page.list
+            sessionStorage.setItem('messageList', JSON.stringify(this.messageList))
+            this.$toast.clear()
+          }
         }
-      })
+        this.$router.push({
+          path
+        })
+      } catch (e) {
+
+      }
     }
   }
 }

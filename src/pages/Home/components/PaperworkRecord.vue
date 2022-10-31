@@ -42,7 +42,7 @@ export default {
         name: '已归还',
         status: '1'
       }],
-      emptySatus: false
+      emptySatus: true
     }
   },
   mounted () {
@@ -53,18 +53,24 @@ export default {
     async click (name, title) {
       try {
         if (title === '全部') { // 不传status参数
-          const { page } = await recordList()
-          this.itemList = page.list
-        } else {
-          const { page } = await recordListByStatus({ status: name })
-          this.itemList = page.list
-          if (page.count === 0) {
-            this.emptySatus = true
-          } else {
-            this.emptySatus = false
+          const { msgCode, page } = await recordList()
+          if (msgCode === 0) {
+            this.itemList = page.list
+            this.$toast.clear()
           }
-          if (name === '0') {
-            this.count = this.itemList.length
+        } else {
+          const { msgCode, page } = await recordListByStatus({ status: name })
+          if (msgCode === 0) {
+            this.$toast.clear()
+            this.itemList = page.list
+            if (page.count === 0) {
+              this.emptySatus = true
+            } else {
+              this.emptySatus = false
+            }
+            if (name === '0') {
+              this.count = this.itemList.length
+            }
           }
         }
       } catch (error) {

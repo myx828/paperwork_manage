@@ -267,7 +267,10 @@ export default {
         this.disabled = false
       }
     }, 1000)
-    this.paperworkDic = JSON.parse(this.$route.query.paperworkDic)
+    this.paperworkDic = JSON.parse(sessionStorage.getItem('paperworkDic'))
+  },
+  destroyed () {
+    sessionStorage.removeItem('paperworkDic')
   },
   methods: {
     // 点击触发多选框

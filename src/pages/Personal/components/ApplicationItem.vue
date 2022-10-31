@@ -79,13 +79,22 @@ export default {
   methods: {
     // 详情
     async toDetail (applyId) {
-      const { item } = await applicationListById(applyId)
-      this.$router.push({
-        path: '/applicationDetail',
-        query: {
-          itemDetail: JSON.stringify(item)
+      try {
+        this.$toast.loading({
+          message: '加载中...',
+          forbidClick: true
+        })
+        const { msgCode, item } = await applicationListById(applyId)
+        if (msgCode === 0) {
+          sessionStorage.setItem('itemDetail', JSON.stringify(item))
+          this.$router.push({
+            path: '/applicationDetail'
+          })
+          this.$toast.clear()
         }
-      })
+      } catch (e) {
+
+      }
     }
   }
 }

@@ -53,10 +53,7 @@ export default {
       })
       if (path === '/application') {
         this.$router.push({
-          path,
-          query: {
-            paperworkDic: JSON.stringify(this.paperworkDic)
-          }
+          path
         })
       }
     }

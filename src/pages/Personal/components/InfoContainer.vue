@@ -33,6 +33,13 @@ export default {
       userInfo: {} // 用户信息列表
     }
   },
+  beforeCreate () {
+    this.$toast.loading({
+      message: '加载中...',
+      forbidClick: true,
+      duration: 500
+    })
+  },
   mounted () {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
   },

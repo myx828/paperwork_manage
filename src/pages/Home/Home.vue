@@ -15,9 +15,6 @@ export default {
     return {
       paperworkDic: []
     }
-  },
-  mounted () {
-    this.paperworkDic = JSON.parse(this.$route.query.paperworkDic)
   }
 }
 </script>

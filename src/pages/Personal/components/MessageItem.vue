@@ -8,6 +8,11 @@
         <div
           class="message_container_content"
         >
+          <!-- 没有数据时 -->
+          <van-empty
+            v-if="emptySatus"
+            description="暂无数据"
+          />
           <div
             v-for="(item,index) in messageList"
             :key="index"
@@ -44,7 +49,10 @@
               收起
             </div>
           </div>
-          <div class="pull">
+          <div
+            v-if="!(emptySatus)"
+            class="pull"
+          >
             <p class="pull_title">
               没有更多了
             </p>
@@ -61,12 +69,21 @@ export default {
     return {
       isRead: true,
       messageList: [],
+      emptySatus: true, // 判断是否有数据
       activeIndex: -1, // 点击的索引值
       isLoading: false // 加载标志
     }
   },
   mounted () {
-    this.messageList = JSON.parse(this.$route.query.messageList)
+    this.messageList = JSON.parse(sessionStorage.getItem('messageList'))
+    if (this.messageList === null) {
+      this.emptySatus = true
+    } else {
+      this.emptySatus = false
+    }
+  },
+  updated () {
+    sessionStorage.removeItem('messageList')
   },
   methods: {
     showDetail (index) {
