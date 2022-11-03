@@ -2,6 +2,8 @@
   <div id="app">
     <router-view />
     <van-tabbar
+      fixed
+      placeholder
       route
       active-color="#B13A3D"
     >

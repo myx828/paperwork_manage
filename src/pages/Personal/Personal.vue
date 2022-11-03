@@ -1,6 +1,9 @@
 <template>
   <div>
-    <NavBar :nav-bar-title="navBarTitle" />
+    <NavBar
+      :nav-bar-title="navBarTitle"
+      placeholder
+    />
     <div class="personal_container">
       <InfoContainer />
       <MenuContainer />
