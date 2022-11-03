@@ -258,6 +258,7 @@ export default {
   },
   created () {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
+    this.paperworkDic = JSON.parse(sessionStorage.getItem('paperworkDic'))
   },
   mounted () {
     const time = setInterval(() => {
@@ -267,7 +268,6 @@ export default {
         this.disabled = false
       }
     }, 1000)
-    this.paperworkDic = JSON.parse(sessionStorage.getItem('paperworkDic'))
   },
   destroyed () {
     sessionStorage.removeItem('paperworkDic')

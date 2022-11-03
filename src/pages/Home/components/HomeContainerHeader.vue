@@ -33,7 +33,7 @@ export default {
       userInfo: {} // 用户信息列表
     }
   },
-  mounted () {
+  created () {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
   },
   methods: {

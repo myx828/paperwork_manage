@@ -74,7 +74,7 @@ export default {
       isLoading: false // 加载标志
     }
   },
-  mounted () {
+  created () {
     this.messageList = JSON.parse(sessionStorage.getItem('messageList'))
     if (this.messageList === null) {
       this.emptySatus = true

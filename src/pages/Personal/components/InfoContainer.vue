@@ -40,7 +40,7 @@ export default {
       duration: 500
     })
   },
-  mounted () {
+  created () {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
   },
   methods: {

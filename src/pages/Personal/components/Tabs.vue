@@ -72,7 +72,7 @@ export default {
       ]
     }
   },
-  mounted () {
+  created () {
     this.click(this.activeName) // 页面加载完后默认调用一次api
   },
   methods: {
