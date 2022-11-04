@@ -2,7 +2,6 @@
   <div id="app">
     <van-tabs
       v-model="activeName"
-      sticky
       @click="click"
     >
       <van-tab
@@ -69,7 +68,9 @@ export default {
           componentName: 'ApprovalItem',
           methods: approvalList
         }
-      ]
+      ],
+      pageNo: 1,
+      pageSize: 5 // 每页5条数据
     }
   },
   created () {
@@ -82,7 +83,7 @@ export default {
         for (var i = 0; i < this.components.length; i++) {
           if (this.navBarTitle === this.components[i].navBarTitle) { // 通过父组件传值 调用不同的api接口
             this.componentName = this.components[i].componentName
-            const { msgCode, page } = await this.components[i].methods({ status: name })
+            const { msgCode, page } = await this.components[i].methods({ status: name, pageNo: this.pageNo, pageSize: this.pageSize })
             if (msgCode === 0) {
               this.$toast.clear()
               if (page.count === 0) {

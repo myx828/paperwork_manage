@@ -2,7 +2,6 @@
   <div id="app">
     <van-tabs
       v-model="activeName"
-      sticky
       @click="click"
     >
       <van-tab
@@ -20,6 +19,11 @@
         <RecordItem :item-list="itemList" />
       </van-tab>
       <van-tab title="全部">
+        <!-- 没有数据时 -->
+        <van-empty
+          v-if="emptySatus"
+          description="暂无数据"
+        />
         <RecordItem :item-list="itemList" />
       </van-tab>
     </van-tabs>
@@ -42,7 +46,9 @@ export default {
         name: '已归还',
         status: '1'
       }],
-      emptySatus: true
+      emptySatus: true, // 是否空数据
+      pageNo: 1,
+      pageSize: 5
     }
   },
   created () {
@@ -53,10 +59,15 @@ export default {
     async click (name, title) {
       try {
         if (title === '全部') { // 不传status参数
-          const { msgCode, page } = await recordList()
+          const { msgCode, page } = await recordList(this.pageNo, this.pageSize)
           if (msgCode === 0) {
             this.itemList = page.list
             this.$toast.clear()
+            if (page.count === 0) {
+              this.emptySatus = true
+            } else {
+              this.emptySatus = false
+            }
           }
         } else {
           const { msgCode, page } = await recordListByStatus({ status: name })

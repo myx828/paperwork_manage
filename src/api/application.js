@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function applicationList ({ status }) {
+export function applicationList ({ status, pageNo, pageSize }) {
   return request({
     url: '/api/lic/approval/v1.0/list',
     method: 'get',
@@ -8,7 +8,9 @@ export function applicationList ({ status }) {
       'Access-Token': JSON.parse(localStorage.getItem('tokenInfo')).access_token
     },
     params: {
-      status
+      status,
+      pageNo,
+      pageSize
     }
   })
 }
