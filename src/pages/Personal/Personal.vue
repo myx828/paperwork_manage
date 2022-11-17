@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import NavBar from '../../components/NavBar.vue'
+import NavBar from '@components/NavBar.vue'
 import InfoContainer from './components/InfoContainer.vue'
 import MenuContainer from './components/MenuContainer.vue'
 import LogOutContainer from './components/LogOutContainer.vue'

@@ -26,8 +26,8 @@ export default {
   data () {
     return {
       images: [
-        require('../../../assets/image/banner.png'),
-        require('../../../assets/image/banner.png')
+        require('@assets/image/banner.png'),
+        require('@assets/image/banner.png')
       ]
     }
   }

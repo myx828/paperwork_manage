@@ -28,8 +28,8 @@
 export default {
   data () {
     return {
-      getAvatarImg: require('../../../assets/image/avatar.jpg'), // 获取头像路径
-      getBannerImg: require('../../../assets/image/banner1.png'),
+      getAvatarImg: require('@assets/image/avatar.jpg'), // 获取头像路径
+      getBannerImg: require('@assets/image/banner1.png'),
       userInfo: {} // 用户信息列表
     }
   },

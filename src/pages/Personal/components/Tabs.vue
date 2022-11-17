@@ -25,8 +25,8 @@
   </div>
 </template>
 <script>
-import { applicationList } from '../../../api/application'
-import { approvalList } from '../../../api/approval'
+import { applicationList } from '@api/application'
+import { approvalList } from '@api/approval'
 import ApplicationItem from './ApplicationItem.vue'
 import ApprovalItem from './ApprovalItem.vue'
 export default {

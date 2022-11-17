@@ -62,7 +62,7 @@
   </div>
 </template>
 <script>
-import { applicationListById } from '../../../api/application'
+import { applicationListById } from '@api/application'
 export default {
   props: {
     itemList: {

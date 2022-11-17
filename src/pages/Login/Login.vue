@@ -46,7 +46,7 @@
   </div>
 </template>
 <script>
-import { login, loginLic, dictionaryByType } from '../../api/login'
+import { login, loginLic, dictionaryByType } from '@api/login'
 import { sm2 } from 'sm-crypto'
 
 const PUBLIC_KEY =

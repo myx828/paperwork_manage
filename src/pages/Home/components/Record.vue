@@ -9,7 +9,7 @@
   </div>
 </template>
 <script>
-import NavBar from '../../../components/NavBar.vue'
+import NavBar from '@components/NavBar.vue'
 import PaperworkRecord from './PaperworkRecord.vue'
 export default {
   components: { NavBar, PaperworkRecord },

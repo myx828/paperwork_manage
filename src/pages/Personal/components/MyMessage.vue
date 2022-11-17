@@ -9,7 +9,7 @@
   </div>
 </template>
 <script>
-import NavBar from '../../../components/NavBar.vue'
+import NavBar from '@/components/NavBar.vue'
 import MessageItem from './MessageItem.vue'
 export default {
   components: { NavBar, MessageItem },

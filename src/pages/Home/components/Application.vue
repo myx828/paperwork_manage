@@ -221,8 +221,8 @@
   </div>
 </template>
 <script>
-import NavBar from '../../../components/NavBar.vue'
-import { saveApplication } from '../../../api/application'
+import NavBar from '@components/NavBar.vue'
+import { saveApplication } from '@api/application'
 export default {
   components: { NavBar },
   data () {

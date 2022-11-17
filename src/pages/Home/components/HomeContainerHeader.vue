@@ -29,7 +29,7 @@
 export default {
   data () {
     return {
-      getAvatarImg: require('../../../assets/image/avatar.jpg'),
+      getAvatarImg: require('@assets/image/avatar.jpg'),
       userInfo: {} // 用户信息列表
     }
   },

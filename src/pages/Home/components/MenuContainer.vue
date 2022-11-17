@@ -34,12 +34,12 @@ export default {
     return {
       showDialog: false,
       services: [{
-        image: require('../../../assets/image/apply.png'),
+        image: require('@assets/image/apply.png'),
         title: '用证申请',
         discription: '证照使用申请',
         path: '/application'
       }, {
-        image: require('../../../assets/image/record.png'),
+        image: require('@assets/image/record.png'),
         title: ' 用证记录 ',
         discription: '用在哪何时在用',
         path: '/record'

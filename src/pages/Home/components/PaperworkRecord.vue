@@ -10,30 +10,20 @@
         :title="tab.name"
         :name="tab.status"
         :badge="tab.name==='未归还'?count:undefined"
-      >
-        <!-- 没有数据时 -->
-        <van-empty
-          v-if="emptySatus"
-          description="暂无数据"
-        />
-        <RecordItem :item-list="itemList" />
-      </van-tab>
-      <van-tab title="全部">
-        <!-- 没有数据时 -->
-        <van-empty
-          v-if="emptySatus"
-          description="暂无数据"
-        />
-        <RecordItem :item-list="itemList" />
-      </van-tab>
+      />
+      <component
+        :is="currentComponent"
+        :item-list="itemList"
+      />
     </van-tabs>
   </div>
 </template>
 <script>
-import { recordList, recordListByStatus } from '../../../api/record'
+import { recordList, recordListByStatus } from '@api/record'
 import RecordItem from './RecordItem.vue'
+import VantEmpty from './VantEmpty.vue'
 export default {
-  components: { RecordItem },
+  components: { RecordItem, VantEmpty },
   data () {
     return {
       itemList: [], // 数据列表
@@ -45,10 +35,17 @@ export default {
       }, {
         name: '已归还',
         status: '1'
+      }, {
+        name: '全部'
       }],
-      emptySatus: true, // 是否空数据
+      // emptySatus: true, // 是否空数据
       pageNo: 1,
       pageSize: 5
+    }
+  },
+  computed: {
+    currentComponent () {
+      return this.itemList.length ? 'RecordItem' : 'VantEmpty'
     }
   },
   created () {
@@ -58,30 +55,12 @@ export default {
     // 点击tab栏切换获取后端数据
     async click (name, title) {
       try {
-        if (title === '全部') { // 不传status参数
-          const { msgCode, page } = await recordList(this.pageNo, this.pageSize)
-          if (msgCode === 0) {
-            this.itemList = page.list
-            this.$toast.clear()
-            if (page.count === 0) {
-              this.emptySatus = true
-            } else {
-              this.emptySatus = false
-            }
-          }
-        } else {
-          const { msgCode, page } = await recordListByStatus({ status: name })
-          if (msgCode === 0) {
-            this.$toast.clear()
-            this.itemList = page.list
-            if (page.count === 0) {
-              this.emptySatus = true
-            } else {
-              this.emptySatus = false
-            }
-            if (name === '0') {
-              this.count = this.itemList.length
-            }
+        const { msgCode, page } = title === '全部' ? await recordList(this.pageNo, this.pageSize) : await recordListByStatus({ status: name })
+        if (msgCode === 0) {
+          this.itemList = page.list
+          this.$toast.clear()
+          if (name === '0') {
+            this.count = this.itemList.length
           }
         }
       } catch (error) {

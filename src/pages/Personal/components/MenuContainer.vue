@@ -14,30 +14,30 @@
   </div>
 </template>
 <script>
-import { messageList } from '../../../api/message'
+import { messageList } from '@api/message'
 export default {
   data () {
     return {
       components: { messageList },
       menus: [
         {
-          icon: require('../../../assets/image/xiaoxi.png'),
+          icon: require('@assets/image/xiaoxi.png'),
           title: '我的消息',
           path: '/myMessage'
         },
         {
-          icon: require('../../../assets/image/geren.png'),
+          icon: require('@assets/image/geren.png'),
           title: '个人消息',
           path: '/info'
         },
         {
-          icon: require('../../../assets/image/shenqing.png'),
+          icon: require('@assets/image/shenqing.png'),
           title: '我的申请',
           path: '/myApplication'
 
         },
         {
-          icon: require('../../../assets/image/shenpi.png'),
+          icon: require('@assets/image/shenpi.png'),
           title: '我的审批',
           path: '/myApproval'
         }

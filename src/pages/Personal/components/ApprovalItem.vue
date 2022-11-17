@@ -62,7 +62,7 @@
   </div>
 </template>
 <script>
-import { approvalListById } from '../../../api/approval'
+import { approvalListById } from '@api/approval'
 export default {
   props: {
     itemList: {
