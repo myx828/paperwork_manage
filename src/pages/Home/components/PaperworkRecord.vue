@@ -21,7 +21,7 @@
 <script>
 import { recordList, recordListByStatus } from '@api/record'
 import RecordItem from './RecordItem.vue'
-import VantEmpty from './VantEmpty.vue'
+import VantEmpty from '@components/VantEmpty.vue'
 export default {
   components: { RecordItem, VantEmpty },
   data () {
@@ -54,17 +54,13 @@ export default {
   methods: {
     // 点击tab栏切换获取后端数据
     async click (name, title) {
-      try {
-        const { msgCode, page } = title === '全部' ? await recordList(this.pageNo, this.pageSize) : await recordListByStatus({ status: name })
-        if (msgCode === 0) {
-          this.itemList = page.list
-          this.$toast.clear()
-          if (name === '0') {
-            this.count = this.itemList.length
-          }
+      const { msgCode, page } = title === '全部' ? await recordList(this.pageNo, this.pageSize) : await recordListByStatus({ status: name })
+      if (msgCode === 0) {
+        this.itemList = page.list
+        this.$toast.clear()
+        if (name === '0') {
+          this.count = this.itemList.length
         }
-      } catch (error) {
-
       }
     }
   }

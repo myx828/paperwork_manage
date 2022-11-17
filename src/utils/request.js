@@ -36,6 +36,10 @@ const requestInterceptor = request.interceptors.request.use(
     }
     request.headers = {
       ...request.headers,
+
+      // 封装token
+      // 'Access-Token':
+
       // 请求时间， format ISOString 并修复时差
       'Request-DateTime': new Date(
         Date.now() - new Date().getTimezoneOffset() * 60000
@@ -62,6 +66,9 @@ request.interceptors.response.use(
       Notify({ type: 'danger', message: `网络错误, 状态码:${status}` })
       return Promise.reject(new Error(`HTTP code is ${status}`))
     } else {
+      // if(config.url==='/api/login'){
+      // console.log(data.item.token)
+
       // 这段代码用于模拟 -10005 和 -10014 的返回状态，已经测试通过
       // if (config.url === '/api/user' && count < 2) {
       //   count++

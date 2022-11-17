@@ -11,13 +11,8 @@
         :name="tab.status"
         :badge="tab.name==='等待审核'?count:undefined"
       >
-        <!-- 没有数据时 -->
-        <van-empty
-          v-if="emptySatus"
-          description="暂无数据"
-        />
         <component
-          :is="componentName"
+          :is="currentComponent"
           :item-list="itemList"
         />
       </van-tab>
@@ -25,12 +20,13 @@
   </div>
 </template>
 <script>
-import { applicationList } from '@api/application'
-import { approvalList } from '@api/approval'
+import { applicationList, applicationListByStatus } from '@api/application'
+import { approvalList, approvalListByStatus } from '@api/approval'
 import ApplicationItem from './ApplicationItem.vue'
 import ApprovalItem from './ApprovalItem.vue'
+import VantEmpty from '@components/VantEmpty.vue'
 export default {
-  components: { ApplicationItem, ApprovalItem },
+  components: { ApplicationItem, ApprovalItem, VantEmpty },
   props: {
     navBarTitle: {
       type: String,
@@ -52,25 +48,31 @@ export default {
         name: '拒绝',
         status: '1'
       }, {
-        name: '全部',
-        status: ''
+        name: '全部'
       }],
-      componentName: '', // 动态绑定组件名字
       emptySatus: true,
+      componentName: '', // 动态绑定组件名字
       components: [ // 动态组件数据
         {
           navBarTitle: '我的申请',
           componentName: 'ApplicationItem',
-          methods: applicationList
+          methods: applicationList,
+          methodsByStatus: applicationListByStatus// 根据状态改变的api方法
         },
         {
           navBarTitle: '我的审批',
           componentName: 'ApprovalItem',
-          methods: approvalList
+          methods: approvalList,
+          methodsByStatus: approvalListByStatus // 根据状态改变的api方法
         }
       ],
       pageNo: 1,
       pageSize: 5 // 每页5条数据
+    }
+  },
+  computed: {
+    currentComponent () {
+      return this.itemList.length ? this.componentName : 'VantEmpty'
     }
   },
   created () {
@@ -79,28 +81,19 @@ export default {
   methods: {
     // 点击tab栏切换获取后端数据
     async click (name, title) {
-      try {
-        for (var i = 0; i < this.components.length; i++) {
-          if (this.navBarTitle === this.components[i].navBarTitle) { // 通过父组件传值 调用不同的api接口
-            this.componentName = this.components[i].componentName
-            const { msgCode, page } = await this.components[i].methods({ status: name, pageNo: this.pageNo, pageSize: this.pageSize })
-            if (msgCode === 0) {
-              this.$toast.clear()
-              if (page.count === 0) {
-                this.emptySatus = true
-              } else {
-                this.emptySatus = false
-              }
-              this.itemList = page.list
-              if (name === '5') {
-                this.count = this.itemList.length
-              }
-              break
+      for (var i = 0; i < this.components.length; i++) {
+        if (this.navBarTitle === this.components[i].navBarTitle) { // 通过父组件传值 调用不同的api接口
+          this.componentName = this.components[i].componentName
+          const { msgCode, page } = title === '全部' ? await this.components[i].methods(this.pageNo, this.pageSize) : await this.components[i].methodsByStatus({ status: name })
+          if (msgCode === 0) {
+            this.$toast.clear()
+            this.itemList = page.list
+            if (name === '5') {
+              this.count = this.itemList.length
             }
+            break
           }
         }
-      } catch (error) {
-
       }
     }
 
