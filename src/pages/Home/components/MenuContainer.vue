@@ -25,9 +25,8 @@ export default {
   props: {
     paperworkDic: {
       type: Array,
-      default: () => {
-        return []
-      }
+      default: () => []
+
     }
   },
   data () {

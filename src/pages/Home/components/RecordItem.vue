@@ -41,9 +41,7 @@ export default {
   props: {
     itemList: {
       type: Array,
-      default: () => {
-        return []
-      }
+      default: () => []
     }
   },
   methods: {
