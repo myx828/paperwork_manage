@@ -76,11 +76,12 @@ export default {
   },
   created () {
     this.messageList = JSON.parse(sessionStorage.getItem('messageList'))
-    if (this.messageList === null) {
-      this.emptySatus = true
-    } else {
-      this.emptySatus = false
-    }
+    // if (this.messageList === null) {
+    //   this.emptySatus = true
+    // } else {
+    //   this.emptySatus = false
+    // }
+    this.emptySatus = !this.messageList
   },
   updated () {
     sessionStorage.removeItem('messageList')
