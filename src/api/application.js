@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 /**
  *  根据不同的status获取不同的列表
- * @param {} param0
+ * @param {status}
  * @returns
  */
 export function applicationListByStatus ({ status }) {

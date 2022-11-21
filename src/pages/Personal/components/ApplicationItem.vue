@@ -32,7 +32,8 @@
           <p class="card_footer_name">
             由{{ item.leader }}提交
           </p>
-          <van-tag
+          <VantTag :item-status-id="item.status" />
+          <!-- <van-tag
             v-if="item.status==='5'"
             plain
             round
@@ -55,7 +56,7 @@
             type="success"
           >
             通过
-          </van-tag>
+          </van-tag> -->
         </div>
       </div>
     </div>
@@ -63,7 +64,11 @@
 </template>
 <script>
 import { applicationListById } from '@api/application'
+import VantTag from '@components/VantTag.vue'
 export default {
+  components: {
+    VantTag
+  },
   props: {
     itemList: {
       type: Array,
