@@ -72,15 +72,13 @@ export default {
       }]
     }
   },
+  // 获取detailItem数据
   beforeCreate () {
-    this.itemDetail = JSON.parse(sessionStorage.getItem('itemList')).list[sessionStorage.getItem('listIndex')]
+    this.itemDetail = JSON.parse(this.$route.query.itemList)[this.$route.query.index]
   },
+  // 获取itemDetail数据
   created () {
-    this.itemDetail = JSON.parse(sessionStorage.getItem('itemList')).list[sessionStorage.getItem('listIndex')]
-  },
-  destroyed () {
-    sessionStorage.removeItem('itemList')
-    sessionStorage.removeItem('listIndex')
+    this.itemDetail = JSON.parse(this.$route.query.itemList)[this.$route.query.index]
   }
 }
 </script>
