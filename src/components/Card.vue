@@ -84,7 +84,8 @@ export default {
       // 将组件标题与卡片内容绑定在一起
       const cardContent = {
         用证记录: this.recordCardContent,
-        我的申请: this.applicationCardContent
+        我的申请: this.applicationCardContent,
+        我的审批: this.applicationCardContent
       }
       return cardContent[this.componentTitle]
     }

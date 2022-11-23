@@ -9,38 +9,34 @@
         class="card"
         @click="toDetail(item.applyId)"
       >
-        <div class="card_header">
-          <p class="card_header_title">
+        <Card
+          :item="item"
+          :component-title="componentTitle "
+          :tag-color="tagColor"
+        >
+          <template #applicationHeaderTitle>
             {{ item.leader }}提交的用证申请
-          </p>
-          <p class="card_header_time">
+          </template>
+          <template #applicationHeaderTime>
             {{ item.createDate }}
-          </p>
-        </div>
-        <div class="card_content">
-          <p>联系电话：{{ item.tellphone }}</p>
-          <p>工作部门：{{ item.department }}</p>
-          <p>当前审批节点：{{ item.department }}</p>
-        </div>
-        <div class="card_footer">
-          <van-tag
-            type="primary"
-            size="medium"
-          >
-            {{ String(item.leader).charAt(0) }}
-          </van-tag>
-          <p class="card_footer_name">
-            由{{ item.leader }}提交
-          </p>
-          <VantTag :item-status-id="item.status" />
-        </div>
+          </template>
+          <template #vantTag>
+            <VantTag :item-status-id="item.status" />
+          </template>
+        </Card>
       </div>
     </div>
   </div>
 </template>
 <script>
 import { approvalListById } from '@api/approval'
+import Card from '@components/Card.vue'
+import VantTag from '@components/VantTag.vue'
 export default {
+  components: {
+    VantTag,
+    Card
+  },
   props: {
     itemList: {
       type: Array,
@@ -49,6 +45,12 @@ export default {
     clickedTitle: {
       type: String,
       default: ''
+    }
+  },
+  data () {
+    return {
+      componentTitle: this.$route.meta.title, // 导航栏标题
+      tagColor: '#1989FA' // 标签页颜色
     }
   },
   methods: {

@@ -24,19 +24,6 @@
             <VantTag :item-status-id="item.status" />
           </template>
         </Card>
-
-        <!-- <div class="card_footer">
-          <van-tag
-            type="primary" 25, 137, 250
-            size="medium" 177, 58, 61
-          >
-            {{ String(item.leader).charAt(0) }}
-          </van-tag>
-          <p class="card_footer_name">
-            由{{ item.leader }}提交
-          </p>
-
-        </div> -->
       </div>
     </div>
   </div>
