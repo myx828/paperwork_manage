@@ -86,41 +86,5 @@ export default {
   margin-top: 4vw;
   background-color: #fff;
   border-radius: 2.66667vw;
-
-  &_header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    &_title {
-      display: flex;
-      align-items: center;
-      font-size: 4vw;
-    }
-
-    &_time {
-      font-size: 2.93333vw;
-      color: #868686;
-    }
-  }
-
-  &_content {
-    justify-content: space-between;
-    padding: 4vw 0;
-    font-size: 3.46667vw;
-    line-height: 1.8;
-    color: #868686;
-  }
-
-  &_footer {
-    display: flex;
-    align-items: center;
-
-    &_name {
-      flex: 1;
-      padding: 0 2.66667vw;
-      font-size: 4vw;
-    }
-  }
 }
 </style>
