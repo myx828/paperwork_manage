@@ -9,39 +9,38 @@
         class="card"
         @click="toDetail(index)"
       >
-        <div class="card_header">
-          <p class="card_header_title">
+        <Card
+          :item="item"
+          :component-title="componentTitle "
+          :tag-color="tagColor"
+        >
+          <template #recordHeaderTitle>
             {{ item.leader }}的{{ item.certificate }}
-          </p>
-          <p class="card_header_time">
+          </template>
+          <template #recordHeaderTime>
             {{ item.certificateId }}
-          </p>
-        </div>
-        <div class="card_content">
-          <p>借出时间：{{ item.outTime }}</p>
-          <p>归还时间：{{ item.returnTime }}</p>
-          <p>借出类型：{{ item.lendType }}</p>
-          <p>地点：{{ item.destination }}</p>
-          <p>事由：{{ item.reason }}</p>
-        </div>
-        <div class="card_footer">
-          <van-tag color="rgb(177, 58, 61)">
-            {{ item.leader.charAt(0) }}
-          </van-tag>
-          <p class="card_footer_name">
-            由 {{ item.leader }} 提交
-          </p>
-        </div>
+          </template>
+        </Card>
       </div>
     </div>
   </div>
 </template>
 <script>
+import Card from '@components/Card.vue'
 export default {
+  components: {
+    Card
+  },
   props: {
     itemList: {
       type: Array,
       default: () => []
+    }
+  },
+  data () {
+    return {
+      componentTitle: this.$route.meta.title, // 导航栏标题
+      tagColor: '#B13A3D' // 标签页颜色
     }
   },
   methods: {
@@ -68,41 +67,5 @@ export default {
   margin-top: 4vw;
   background-color: #fff;
   border-radius: 2.66667vw;
-
-  &_header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    &_title {
-      display: flex;
-      align-items: center;
-      font-size: 4vw;
-    }
-
-    &_time {
-      font-size: 2.93333vw;
-      color: #868686;
-    }
-  }
-
-  &_content {
-    justify-content: space-between;
-    padding: 4vw 0;
-    font-size: 3.46667vw;
-    line-height: 1.8;
-    color: #868686;
-  }
-
-  &_footer {
-    display: flex;
-    align-items: center;
-
-    &_name {
-      flex: 1;
-      padding: 0 2.66667vw;
-      font-size: 4vw;
-    }
-  }
 }
 </style>

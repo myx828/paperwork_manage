@@ -9,41 +9,46 @@
         class="card"
         @click="toDetail(item.applyId)"
       >
-        <div class="card_header">
-          <p class="card_header_title">
+        <Card
+          :item="item"
+          :component-title="componentTitle "
+          :tag-color="tagColor"
+        >
+          <template #applicationHeaderTitle>
             {{ item.leader }}提交的用证申请
-          </p>
-          <p class="card_header_time">
+          </template>
+          <template #applicationHeaderTime>
             {{ item.createDate }}
-          </p>
-        </div>
-        <div class="card_content">
-          <p>联系电话：{{ item.tellphone }}</p>
-          <p>工作部门：{{ item.department }}</p>
-          <p>当前审批节点：{{ item.department }}</p>
-        </div>
-        <div class="card_footer">
+          </template>
+          <template #vantTag>
+            <VantTag :item-status-id="item.status" />
+          </template>
+        </Card>
+
+        <!-- <div class="card_footer">
           <van-tag
-            type="primary"
-            size="medium"
+            type="primary" 25, 137, 250
+            size="medium" 177, 58, 61
           >
             {{ String(item.leader).charAt(0) }}
           </van-tag>
           <p class="card_footer_name">
             由{{ item.leader }}提交
           </p>
-          <VantTag :item-status-id="item.status" />
-        </div>
+
+        </div> -->
       </div>
     </div>
   </div>
 </template>
 <script>
 import { applicationListById } from '@api/application'
+import Card from '@components/Card.vue'
 import VantTag from '@components/VantTag.vue'
 export default {
   components: {
-    VantTag
+    VantTag,
+    Card
   },
   props: {
     itemList: {
@@ -53,6 +58,12 @@ export default {
     clickedTitle: {
       type: String,
       default: ''
+    }
+  },
+  data () {
+    return {
+      componentTitle: this.$route.meta.title, // 导航栏标题
+      tagColor: '#1989FA' // 标签页颜色
     }
   },
   methods: {
@@ -88,41 +99,5 @@ export default {
   margin-top: 4vw;
   background-color: #fff;
   border-radius: 2.66667vw;
-
-  &_header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    &_title {
-      display: flex;
-      align-items: center;
-      font-size: 4vw;
-    }
-
-    &_time {
-      font-size: 2.93333vw;
-      color: #868686;
-    }
-  }
-
-  &_content {
-    justify-content: space-between;
-    padding: 4vw 0;
-    font-size: 3.46667vw;
-    line-height: 1.8;
-    color: #868686;
-  }
-
-  &_footer {
-    display: flex;
-    align-items: center;
-
-    &_name {
-      flex: 1;
-      padding: 0 2.66667vw;
-      font-size: 4vw;
-    }
-  }
 }
 </style>
