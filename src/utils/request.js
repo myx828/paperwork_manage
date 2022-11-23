@@ -5,6 +5,7 @@ import { Notify } from 'vant'
 
 // 请求超时时间
 // const TIMEOUT = 10000
+
 const TIMEOUT = 3000000 // TODO /api/table/searchData 接口请求需较长时间，设置3000000与后端对应
 // 创建 axios 实例
 export const request = axios.create({

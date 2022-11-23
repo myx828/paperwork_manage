@@ -32,30 +32,7 @@
           <p class="card_footer_name">
             由{{ item.leader }}提交
           </p>
-          <van-tag
-            v-if="item.status==='5'"
-            plain
-            round
-            type="primary"
-          >
-            等待审核
-          </van-tag>
-          <van-tag
-            v-if="item.status==='1'"
-            plain
-            round
-            type="danger"
-          >
-            拒绝
-          </van-tag>
-          <van-tag
-            v-if="item.status==='0'"
-            plain
-            round
-            type="success"
-          >
-            通过
-          </van-tag>
+          <VantTag :item-status-id="item.status" />
         </div>
       </div>
     </div>

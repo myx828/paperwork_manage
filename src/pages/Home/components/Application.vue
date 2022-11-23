@@ -286,11 +286,7 @@ export default {
       }
       for (let i = 0; i < this.result.length; i++) {
         this.showDetail = true
-        if (i === 0) {
-          this.paperwork = this.result[i].name + this.paperwork
-        } else {
-          this.paperwork = this.paperwork + '、' + this.result[i].name
-        }
+        this.paperwork = i ? this.paperwork + '、' + this.result[i].name : this.result[i].name + this.paperwork
       }
     },
     // 确认时间

@@ -40,10 +40,10 @@ export default {
           tagType: 'warning'
         }
       ]
-      // 对应标签项
     }
   },
   computed: {
+    // 对应标签项
     statusTagItem () {
       return this.statusTagList.find((item) => item.statusId === this.itemStatusId)
     }
