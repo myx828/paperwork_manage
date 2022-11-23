@@ -1,36 +1,38 @@
 <template>
   <div class="info_container">
     <div class="info_container_user">
-      <div class="info_container_user_image">
-        <van-image
-          :src="getAvatarImg"
-          round
-        />
-      </div>
-      <p class="info_container_user_name">
-        {{ userInfo.xm }}
-      </p>
-      <van-icon
-        :badge="0"
-        name="envelop-o"
-        class="info_container_user_icon"
-        @click="toMessage"
-      />
+      <User :user-name="userInfo.xm">
+        <template #envelopIcon>
+          <van-icon
+            :badge="0"
+            name="envelop-o"
+            class="info_container_user_icon"
+            @click="toMessage"
+          />
+        </template>
+      </User>
     </div>
     <div
       class="info_container_banner"
     >
-      <van-image :src="getBannerImg" />
+      <van-image
+        :src="getBannerImg"
+        :font-size="userNameFontSize"
+      />
     </div>
   </div>
 </template>
 <script>
+import User from '@components/User'
 export default {
+  components: {
+    User
+  },
   data () {
     return {
-      getAvatarImg: require('@assets/image/avatar.jpg'), // 获取头像路径
       getBannerImg: require('@assets/image/banner1.png'),
-      userInfo: {} // 用户信息列表
+      userInfo: {}, // 用户信息列表
+      userNameFontSize: 4 // 用户名字体样式
     }
   },
   beforeCreate () {
@@ -53,21 +55,8 @@ export default {
 <style lang="scss" scoped>
     .info_container {
       &_user {
-        display: flex;
-        align-items: center;
         padding: 4vw 4vw 16vw;
         background-color: #fff;
-
-        &_image {
-          width: 10.66667vw;
-          height: 10.66667vw;
-        }
-
-        &_name {
-          flex: 1;
-          padding: 0 2.66667vw;
-          font-size: 4vw;
-        }
 
         &_icon {
           font-size: 5.33333vw;
