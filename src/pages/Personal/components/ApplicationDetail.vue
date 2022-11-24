@@ -44,7 +44,7 @@
   </div>
 </template>
 <script>
-import NavBar from '@components/NavBar.vue'
+import NavBar from '@/components/NavBar.vue'
 export default {
   components: { NavBar },
   data () {
@@ -125,8 +125,8 @@ export default {
   },
   methods: {
     toCancelApplication () {
-      this.$router.push({
-        path: '/cancelApplication'
+      this.$router.replace({
+        path: '/cancelApplication/' + this.$route.params.applyId
       })
     }
   }

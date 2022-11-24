@@ -26,6 +26,13 @@
         </Card>
       </div>
     </div>
+    <div
+      class="pull"
+    >
+      <p class="pull_title">
+        没有更多了
+      </p>
+    </div>
   </div>
 </template>
 <script>
@@ -65,7 +72,7 @@ export default {
         if (msgCode === 0) {
           sessionStorage.setItem('itemDetail', JSON.stringify(item))
           this.$router.push({
-            path: '/applicationDetail'
+            path: '/applicationDetail/' + applyId
           })
           this.$toast.clear()
         }
@@ -86,5 +93,18 @@ export default {
   margin-top: 4vw;
   background-color: #fff;
   border-radius: 2.66667vw;
+}
+
+// 没有更多了
+.pull {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &_title {
+    padding: 2.66667vw;
+    font-size: 2.93333vw;
+    color: #b13a3d;
+  }
 }
 </style>

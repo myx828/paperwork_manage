@@ -105,4 +105,5 @@ export default {
   overflow: hidden;
   background-color: #f4f4f4;
 }
+
 </style>

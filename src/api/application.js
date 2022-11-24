@@ -63,3 +63,16 @@ export function saveApplication ({ applicationList }) {
     }
   })
 }
+
+export function deleteApplication ({ applyId, reason }) {
+  return request({
+    url: '/api/lic/approval/v1.0/delete/' + applyId,
+    method: 'delete',
+    headers: {
+      'Access-Token': JSON.parse(localStorage.getItem('tokenInfo')).access_token
+    },
+    data: {
+      reason
+    }
+  })
+}

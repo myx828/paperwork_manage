@@ -77,7 +77,7 @@ export default [
     }
   },
   {
-    path: '/applicationDetail',
+    path: '/applicationDetail/:applyId',
     component: ApplicationDetail,
     meta: {
       title: '申请详情'
@@ -91,7 +91,7 @@ export default [
     }
   },
   {
-    path: '/cancelApplication',
+    path: '/cancelApplication/:applyId',
     component: CancelApplication,
     meta: {
       title: '取消用证申请'
