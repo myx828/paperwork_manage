@@ -26,23 +26,19 @@
         </Card>
       </div>
     </div>
-    <div
-      class="pull"
-    >
-      <p class="pull_title">
-        没有更多了
-      </p>
-    </div>
+    <NoMore />
   </div>
 </template>
 <script>
 import { approvalListById } from '@api/approval'
 import Card from '@components/Card.vue'
 import VantTag from '@components/VantTag.vue'
+import NoMore from '@components/NoMore'
 export default {
   components: {
     VantTag,
-    Card
+    Card,
+    NoMore
   },
   props: {
     itemList: {

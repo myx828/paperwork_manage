@@ -49,14 +49,7 @@
               收起
             </div>
           </div>
-          <div
-            v-if="!(emptySatus)"
-            class="pull"
-          >
-            <p class="pull_title">
-              没有更多了
-            </p>
-          </div>
+          <NoMore />
         </div>
       </van-pull-refresh>
     </div>
@@ -64,7 +57,11 @@
 </template>
 <script>
 import { Toast } from 'vant'
+import NoMore from '@components/NoMore'
 export default {
+  components: {
+    NoMore
+  },
   data () {
     return {
       isRead: true,

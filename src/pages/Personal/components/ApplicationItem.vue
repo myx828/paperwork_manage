@@ -26,23 +26,19 @@
         </Card>
       </div>
     </div>
-    <div
-      class="pull"
-    >
-      <p class="pull_title">
-        没有更多了
-      </p>
-    </div>
+    <NoMore />
   </div>
 </template>
 <script>
 import { applicationListById } from '@api/application'
 import Card from '@components/Card.vue'
 import VantTag from '@components/VantTag.vue'
+import NoMore from '@components/NoMore'
 export default {
   components: {
     VantTag,
-    Card
+    Card,
+    NoMore
   },
   props: {
     itemList: {
@@ -95,16 +91,4 @@ export default {
   border-radius: 2.66667vw;
 }
 
-// 没有更多了
-.pull {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &_title {
-    padding: 2.66667vw;
-    font-size: 2.93333vw;
-    color: #b13a3d;
-  }
-}
 </style>
